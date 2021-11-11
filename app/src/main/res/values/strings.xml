@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">canprojectapp</string>
+    <string name="by_signing_up_you_are_agree_to_our_terms_condition_and_privacy_policy"><![CDATA[By signing up you are agree to our terms & condition and privacy policy]]></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
