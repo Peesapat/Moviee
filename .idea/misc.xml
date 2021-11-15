@@ -3,7 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Lenovo/Desktop/Moviee-master/app/src/main/res/layout/activity_home.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/Lenovo/Desktop/Moviee-master/app/src/main/res/layout/activity_list.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/Lenovo/Desktop/Moviee-master/app/src/main/res/layout/activity_main.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/Lenovo/Desktop/Moviee-master/app/src/main/res/layout/activity_movie_details.xml" value="0.22" />
+        <entry key="..\:/Users/Lenovo/Desktop/Moviee-master/app/src/main/res/layout/actorcard.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/Lenovo/Desktop/Moviee-master/app/src/main/res/layout/homeimg.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/Desktop/Moviee-master/app/src/main/res/layout/homercy2.xml" value="0.22" />
+        <entry key="..\:/Users/Lenovo/Desktop/Moviee-master/app/src/main/res/layout/hometopmovies.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/Lenovo/Desktop/Moviee-master/app/src/main/res/layout/item_home.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/Lenovo/Desktop/Moviee-master/app/src/main/res/layout/topmoviemodel.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/Desktop/Moviee-master/app/src/main/res/layout/watchlistmodel.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/Lenovo/Desktop/dantee/app/src/main/res/layout/activity_home.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/Lenovo/Desktop/dantee/app/src/main/res/layout/activity_movie_details.xml" value="0.1796875" />
         <entry key="..\:/Users/Lenovo/Desktop/dantee/app/src/main/res/layout/activity_top_movies_page.xml" value="0.1796875" />

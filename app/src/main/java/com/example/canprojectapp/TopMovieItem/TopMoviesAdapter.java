@@ -1,4 +1,4 @@
-package com.example.canprojectapp;
+package com.example.canprojectapp.TopMovieItem;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.canprojectapp.HomeItem1.Movie;
+import com.example.canprojectapp.R;
 
 import java.util.List;
 

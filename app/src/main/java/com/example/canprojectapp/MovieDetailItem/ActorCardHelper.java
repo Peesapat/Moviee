@@ -1,4 +1,4 @@
-package com.example.canprojectapp;
+package com.example.canprojectapp.MovieDetailItem;
 
 import android.os.Parcel;
 import android.os.Parcelable;

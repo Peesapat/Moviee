@@ -1,23 +1,18 @@
-package com.example.canprojectapp;
+package com.example.canprojectapp.TopMovieItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.canprojectapp.HomeItem1.JSONResponse;
+import com.example.canprojectapp.HomeItem1.Movie;
+import com.example.canprojectapp.APIs.MovieApi;
+import com.example.canprojectapp.MovieDetailItem.MovieDetail;
+import com.example.canprojectapp.R;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +24,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TopMoviesPage extends AppCompatActivity implements TopmovieListener {
-    //private static String JSON_URL = "https://run.mocky.io/v3/655ef7fd-58d1-420a-ba6e-32ae8acaaf3c";
 
     List<Movie> Topmovielist;
     RecyclerView rcyViewTop;
@@ -44,7 +38,7 @@ public class TopMoviesPage extends AppCompatActivity implements TopmovieListener
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://imdb-api.com/en/API/Top250Movies/")
+                .baseUrl("https://imdb-api.com/en/API/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -67,14 +61,11 @@ public class TopMoviesPage extends AppCompatActivity implements TopmovieListener
             }
         });
 
-
-
-
     }
 
     @Override
     public void onTopMovieClick(int position) {
-        Intent intent = new Intent(this,MovieDetail.class);
+        Intent intent = new Intent(this, MovieDetail.class);
         intent.putExtra("rating",Topmovielist.get(position).getImDbRating());
         intent.putExtra("name", Topmovielist.get(position).getTitle());
         intent.putExtra("year", Topmovielist.get(position).getYear());

@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Canprojectapp">
         <activity
-            android:name=".TopMoviesPage"
+            android:name=".TopMovieItem.TopMoviesPage"
             android:exported="false" />
         <activity
-            android:name=".MovieDetail"
+            android:name=".MovieDetailItem.MovieDetail"
             android:exported="false" />
         <activity
             android:name=".SettingActivity"

@@ -1,6 +1,6 @@
-package com.example.canprojectapp;
+package com.example.canprojectapp.HomeItem2;
 
-public class Movie {
+public class Movie2 {
     private String title,imDbRating,year,image;
 
     public String getTitle() {

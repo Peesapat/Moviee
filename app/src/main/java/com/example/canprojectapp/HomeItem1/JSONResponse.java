@@ -1,4 +1,4 @@
-package com.example.canprojectapp;
+package com.example.canprojectapp.HomeItem1;
 
 public class JSONResponse {
     private Movie[] items;

@@ -5,12 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -18,45 +14,37 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.example.canprojectapp.HomeItem1.HomecardAdapter;
+import com.example.canprojectapp.HomeItem1.JSONResponse;
+import com.example.canprojectapp.HomeItem1.Movie;
+import com.example.canprojectapp.HomeItem1.OnMovieListener;
+import com.example.canprojectapp.HomeItem2.HomeCardAdapter2;
+import com.example.canprojectapp.HomeItem2.JSONResponse2;
+import com.example.canprojectapp.HomeItem2.Movie2;
+import com.example.canprojectapp.HomeItem2.OnMovieListener2;
+import com.example.canprojectapp.MovieDetailItem.MovieDetail;
+import com.example.canprojectapp.TopMovieItem.TopMoviesPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.example.canprojectapp.APIs.MovieApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-/// json w casts https://run.mocky.io/v3/681247a4-36bf-49bf-9853-12947a005df2
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener, OnMovieListener {
-
-    /*
-    ViewPager2 vpHorizontal;
-    int[] images = {R.drawable.avatarposter,R.drawable.avengersposter,R.drawable.cargoposter,R.drawable.deadpoolposter,R.drawable.oblivionposter};
-
-    HomeAdapter adapter;
-
-     */
-
-
-   // private static String JSON_URL = "https://run.mocky.io/v3/655ef7fd-58d1-420a-ba6e-32ae8acaaf3c";
-    private static String JSON_URL = "https://imdb-api.com/en/API/Top250Movies/k_3o41i3ti";
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener, OnMovieListener, OnMovieListener2 {
+    private MovieApi movieApi;
 
     List<Movie> movielist;
     RecyclerView recyclerView;
+
+    List<Movie2> movielist2;
+    RecyclerView recyclerView2;
+
 
     BottomNavigationView bottomNavigationView;
 
@@ -71,37 +59,26 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             getWindow().setStatusBarColor(ContextCompat.getColor(HomeActivity.this,R.color.black));
         }
 
-
         TextView toTopMovies = findViewById(R.id.seemore);
         toTopMovies.setOnClickListener(this);
+
 
         recyclerView = findViewById(R.id.homeview);
         movielist = new ArrayList<>();
 
+        recyclerView2 = findViewById(R.id.homeview2);
+        movielist2 = new ArrayList<>();
+
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://imdb-api.com/en/API/Top250Movies/")
+                .baseUrl("https://imdb-api.com/en/API/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        MovieApi movieApi = retrofit.create(MovieApi.class);
+        movieApi = retrofit.create(MovieApi.class);
 
-        Call<JSONResponse> call = movieApi.getMovies();
-
-        call.enqueue(new Callback<JSONResponse>() {
-            @Override
-            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
-                JSONResponse jsonResponse = response.body();
-                movielist = new ArrayList<>(Arrays.asList(jsonResponse.getMovies()));
-                putDataToRCY(movielist);
-
-            }
-
-            @Override
-            public void onFailure(Call<JSONResponse> call, Throwable t) {
-
-            }
-        });
-
+       getOne();
+       getTwo();
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.home);
@@ -134,41 +111,52 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
-
-
-        /*
-        vpHorizontal = findViewById(R.id.vp_horizontal);
-
-        adapter = new HomeAdapter(images);
-
-        vpHorizontal.setClipToPadding(false);
-        vpHorizontal.setClipChildren(false);
-        vpHorizontal.setOffscreenPageLimit(3);
-        vpHorizontal.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
-        vpHorizontal.setAdapter(adapter);
-
-        CompositePageTransformer transformer = new CompositePageTransformer();
-        transformer.addTransformer(new MarginPageTransformer(8));
-        transformer.addTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-
-                float v = 1 - Math.abs(position);
-                page.setScaleY(0.8f + v * 0.2f);
-            }
-        });
-
-        vpHorizontal.setPageTransformer(transformer);
-
-         */
     }
     @Override
     public void onMovieClick(int position) {
-        Intent intent = new Intent(this,MovieDetail.class);
+        Intent intent = new Intent(this, MovieDetail.class);
         intent.putExtra("rating", movielist.get(position).getImDbRating());
         intent.putExtra("name", movielist.get(position).getTitle());
         intent.putExtra("year", movielist.get(position).getYear());
         startActivity(intent);
+
+    }
+
+    public  void getOne(){
+        Call<JSONResponse> call = movieApi.getMovies();
+
+
+        call.enqueue(new Callback<JSONResponse>() {
+            @Override
+            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
+                JSONResponse jsonResponse = response.body();
+                movielist = new ArrayList<>(Arrays.asList(jsonResponse.getMovies()));
+                putDataToRCY(movielist);
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponse> call, Throwable t) {
+
+            }
+        });
+
+    }
+    public void getTwo(){
+        Call<JSONResponse2> call = movieApi.getMovies2();
+        call.enqueue(new Callback<JSONResponse2>() {
+            @Override
+            public void onResponse(Call<JSONResponse2> call, Response<JSONResponse2> response) {
+                JSONResponse2 jsonResponse = response.body();
+                movielist2 = new ArrayList<>(Arrays.asList(jsonResponse.getMovies2()));
+                putDataToRCY2(movielist2);
+
+            }
+            @Override
+            public void onFailure(Call<JSONResponse2> call, Throwable t) {
+
+            }
+        });
 
     }
     public void putDataToRCY(List<Movie> movieList){
@@ -176,6 +164,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adpt);
     }
+    public void putDataToRCY2(List<Movie2> movieList2){
+        HomeCardAdapter2 adpt2 = new HomeCardAdapter2(this, movieList2, this);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView2.setAdapter(adpt2);
+    }
+
 
 
     @Override
@@ -183,9 +177,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Intent i;
         switch (v.getId()){
 
-            case R.id.seemore: i = new Intent(this,TopMoviesPage.class);startActivity(i);break;
+            case R.id.seemore: i = new Intent(this, TopMoviesPage.class);startActivity(i);break;
 
         }}
 
 
+    @Override
+    public void onMovieClick2(int position) {
+        Intent intent = new Intent(this, MovieDetail.class);
+        intent.putExtra("rating", movielist2.get(position).getImDbRating());
+        intent.putExtra("name", movielist2.get(position).getTitle());
+        intent.putExtra("year", movielist2.get(position).getYear());
+        startActivity(intent);
+
+    }
 }
